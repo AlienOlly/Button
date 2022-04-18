@@ -141,7 +141,10 @@ body {
   border: solid black 1.5px;
   border-radius: 10px;
   width: 300px;
-  height: 100px;
+  height: 120px;
+  font-family: 'Lato Regular', sans-serif;
+  font-weight: 400;
+  font-weight: bolder;
   
   display: flex;
   flex-direction: column;
@@ -150,7 +153,7 @@ body {
 
   transform: translate(0px, -120%);
   opacity: 0;
-  transition: all 0.8s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 .list:hover .drop_down{
@@ -173,14 +176,76 @@ body {
   margin-right: 10px;
 
   transform: rotate(0deg );
-  transition: all 0.8s ease-out;
+  transition: all 0.3s ease-out;
 }
 .list:hover .triangle{
   transform: rotate(90deg); 
 }
 
-/* .test{
-    width: 1500px;
-    height: 700px;
-    background-color: #1d1d1d;
-} */
+.easy:hover{
+  color: green;
+}
+
+.easy:after {
+  display: block;
+  content: "";
+  background-color: green;
+  color: rgba(95, 88, 88, 0.603);
+  height: 3px;
+  width: 0%;
+  left: 50%;
+  position: absolute;
+
+  transition: width .3s ease-in-out;
+  transform: translateX(-50%);
+}
+.easy:hover:after,
+.easy:focus:after {
+  width:150px;
+}
+
+.medium:hover{
+  color: rgb(255, 177, 59);
+}
+
+.medium:after {
+  display: block;
+  content: "";
+  background-color: rgb(255, 177, 59);
+  height: 3px;
+  width: 0%;
+  left: 50%;
+  position: absolute;
+
+  transition: width .3s ease-in-out;
+  transform: translateX(-50%);
+}
+.medium:hover:after,
+.medium:focus:after {
+  width: 200px;
+}
+
+.hard:hover{
+  color: rgb(255, 59, 59);
+}
+
+.hard:after {
+  display: block;
+  content: "";
+  background-color: rgb(255, 59, 59);
+  height: 3px;
+  width: 0%;
+  left: 50%;
+  position: absolute;
+  
+  transition: width .3s ease-in-out;
+  transform: translateX(-50%);
+}
+.hard:hover:after,
+.hard:focus:after {
+  width:130px;
+}
+
+.check{
+  
+}

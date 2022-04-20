@@ -57,6 +57,13 @@ body {
   align-items: center;
 }
 
+.timer{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
 .btn{
   color: white;
   text-decoration: none;
@@ -246,6 +253,4 @@ body {
   width:130px;
 }
 
-.check{
-  
-}
+.check{}

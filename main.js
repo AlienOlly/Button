@@ -18,6 +18,7 @@ const $phrase = document.createElement('p');
 const WIDTH = 1500;
 const HEIGHT = 500;
 var count = 0;
+var time = 2;
 
 $btnBox.insertAdjacentElement('beforeend', $btn);
 $limit.insertAdjacentElement('beforeend', $btnBox);
@@ -58,10 +59,59 @@ $btnBox.addEventListener('click', () => {
     getRandomPos()
 })
 
-const $easyMod = document.querySelector('.easy');
-const $mediumMod = document.querySelector('.medium');
-const $hardMod = document.querySelector('.hrad');
+const $timer = document.querySelector('.timer')
+const $easyMode = document.querySelector('.easy');
+    $easyMode.classList.add('check');
+const $mediumMode = document.querySelector('.medium');
+const $hardMode = document.querySelector('.hard');
 
-$easyMod.addEventListener('click', () => {
-    $easyMod.classList.add('check')
+function timer(t) {
+    var interval = setInterval(() => {
+        $timer.innerText = t + ' sec';
+        if (t > 0) {
+            t--;
+        } else {
+            clearInterval(interval)
+        }
+    }, 1000);
+    if(t === 0){
+        alert('Ты проиграл!');
+        window.location.reload()
+    }
+}
+
+
+// function mediumLevelRules() {
+// }
+
+$easyMode.addEventListener('click', () => {
+    if($easyMode.classList.contains('check')){
+        alert('Этот режим игры уже выбран');
+    } else{
+        $easyMode.classList.add('check');
+        $mediumMode.classList.remove('check');
+        $hardMode.classList.remove('check');
+    }
+})
+
+$mediumMode.addEventListener('click', () => {
+    if($mediumMode.classList.contains('check')){
+        alert('Этот режим игры уже выбран');
+    } else{
+        $mediumMode.classList.add('check');
+        $easyMode.classList.remove('check');
+        $hardMode.classList.remove('check');
+    }
+    
+    timer(time)
+})
+
+$hardMode.addEventListener('click', () => {
+    if($hardMode.classList.contains('check')){
+        alert('Этот режим игры уже выбран');
+    } else{
+        $hardMode.classList.add('check');
+        $easyMode.classList.remove('check');
+        $mediumMode.classList.remove('check');
+    }
 })

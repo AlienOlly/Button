@@ -18,7 +18,7 @@ const $phrase = document.createElement('p');
 const WIDTH = 1500;
 const HEIGHT = 500;
 var count = 0;
-var time = 2;
+var time = 3;
 
 $btnBox.insertAdjacentElement('beforeend', $btn);
 $limit.insertAdjacentElement('beforeend', $btnBox);
@@ -47,7 +47,7 @@ function setRandomPhrases(){
     const phrases = ['Мимо!', 'Промах!', 'Промахнулся!', 'Старайся лучше!', 'xD', 'Что, не нажимается?', 'Упс', 'Хоба!', 'Вжух!', ':('];
     let n = Math.floor(Math.random() * 10);
 
-    return (phrases[n]);
+    return phrases[n];
 }
 
 $btnBox.addEventListener('click', () => {
@@ -66,23 +66,25 @@ const $mediumMode = document.querySelector('.medium');
 const $hardMode = document.querySelector('.hard');
 
 function timer(t) {
-    var interval = setInterval(() => {
+    var timeInterval = setInterval(() => {
         $timer.innerText = t + ' sec';
         if (t > 0) {
-            t--;
+            t--
         } else {
-            clearInterval(interval)
+            alert('Ты проиграл!');
+            window.location.reload()
+            clearInterval(timeInterval)
         }
     }, 1000);
-    if(t === 0){
-        alert('Ты проиграл!');
-        window.location.reload()
-    }
 }
 
-
-// function mediumLevelRules() {
-// }
+function randomBackground() {
+    const colors = ['#FF0000', '#00CC00', '#3914AF', '#FFD300', '#33CEC3', '#FF6F00', '#AD009F', '#C6F500', '#000000', '#FFFFFF'];
+    var colorInterval = setInterval(() => {
+        let r = Math.floor(Math.random() * 10)
+        $body.style.backgroundColor = colors[r];
+    }, 150)
+}
 
 $easyMode.addEventListener('click', () => {
     if($easyMode.classList.contains('check')){
@@ -114,4 +116,7 @@ $hardMode.addEventListener('click', () => {
         $easyMode.classList.remove('check');
         $mediumMode.classList.remove('check');
     }
+
+    // timer(time)
+    randomBackground()
 })

@@ -1,3 +1,4 @@
+// /*
 const $body = document.querySelector('body'); 
 const $score = document.querySelector('.score');
 const $container = document.querySelector('.container');
@@ -14,11 +15,13 @@ const $header = document.querySelector('.header');
     $phraseBg.classList.add('centering');
 const $phrase = document.createElement('p');
     $phrase.classList.add('phrase');
-
+// */
 const WIDTH = 1500;
 const HEIGHT = 500;
-var count = 0;
+var countMiss = 0;
 var time = 3;
+var checkForRandomPhrase = Infinity;
+var checkForRandomColor = Infinity;
 
 $btnBox.insertAdjacentElement('beforeend', $btn);
 $limit.insertAdjacentElement('beforeend', $btnBox);
@@ -40,18 +43,26 @@ function getRandomPos() {
     $btnBox.style.marginLeft = posLeft + 'px';
     $btnBox.style.marginTop = posTop + 'px';
     
-    $score.innerText = 'Раз промазал: ' + count;
+    $score.innerText = 'Раз промазал: ' + countMiss;
+}
+
+var settingARandomPhrase = function(param) {
+    param = Math.floor(Math.random() * 10);
+    if(checkForRandomPhrase !== param){
+        checkForRandomPhrase = param;
+        return checkForRandomPhrase;
+    } else{
+        settingARandomPhrase()
+    }
 }
 
 function setRandomPhrases(){
     const phrases = ['Мимо!', 'Промах!', 'Промахнулся!', 'Старайся лучше!', 'xD', 'Что, не нажимается?', 'Упс', 'Хоба!', 'Вжух!', ':('];
-    let n = Math.floor(Math.random() * 10);
-
-    return phrases[n];
+    return phrases[settingARandomPhrase()];
 }
 
 $btnBox.addEventListener('click', () => {
-    count++
+    countMiss++
     $limit.classList.remove('limit');
     $btnBox.classList.remove('limit');
     $phrase.innerText = setRandomPhrases();
@@ -75,16 +86,27 @@ function timer(t) {
             window.location.reload()
             clearInterval(timeInterval)
         }
-    }, 1000);
+    }, 500);
+}
+
+var settingARandomColor = function(param) {
+    param = Math.ceil(Math.random() * 10);
+    if(checkForRandomColor !== param){
+        checkForRandomColor = param;
+        return checkForRandomColor;
+    } else{
+        settingARandomColor()
+    }
 }
 
 function randomBackground() {
     const colors = ['#FF0000', '#00CC00', '#3914AF', '#FFD300', '#33CEC3', '#FF6F00', '#AD009F', '#C6F500', '#000000', '#FFFFFF'];
     var colorInterval = setInterval(() => {
-        let r = Math.floor(Math.random() * 10)
-        $body.style.backgroundColor = colors[r];
-    }, 150)
+        $body.style.backgroundColor = colors[settingARandomColor()];
+    }, 50)
 }
+
+
 
 $easyMode.addEventListener('click', () => {
     if($easyMode.classList.contains('check')){
@@ -117,6 +139,6 @@ $hardMode.addEventListener('click', () => {
         $mediumMode.classList.remove('check');
     }
 
-    // timer(time)
+    timer(time)
     randomBackground()
 })

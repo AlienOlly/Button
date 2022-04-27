@@ -68,11 +68,17 @@ $btnBox.addEventListener('click', () => {
     $phrase.innerText = setRandomPhrases();
 
     getRandomPos()
+    if(HardLevelKey){
+        timer(time)
+        // console.log('time reloaded');
+    } else if(MediumLevelKey){
+        timer(time)
+    }
 })
 
 const $timer = document.querySelector('.timer')
+    $timer.classList.add('checkEasy');
 const $easyMode = document.querySelector('.easy');
-    $easyMode.classList.add('check');
 const $mediumMode = document.querySelector('.medium');
 const $hardMode = document.querySelector('.hard');
 
@@ -86,7 +92,7 @@ function timer(t) {
             window.location.reload()
             clearInterval(timeInterval)
         }
-    }, 500);
+    }, 1000);
 }
 
 var settingARandomColor = function(param) {
@@ -106,39 +112,75 @@ function randomBackground() {
     }, 50)
 }
 
+var EasyLevelKey = false;
+var MediumLevelKey = false;
+var HardLevelKey = false;
 
+function levelEasyInclusion(key) {
+    if(key){
+        if($timer.classList.contains('checkEasy')){
+            alert('Этот режим игры уже выбран');
+        } else{
+            $timer.classList.add('checkEasy');
+            $timer.classList.remove('checkMedium');
+            $timer.classList.remove('checkHard');
+        }
+    } else{
+        console.log('Error!');
+    }
+}
 
 $easyMode.addEventListener('click', () => {
-    if($easyMode.classList.contains('check')){
-        alert('Этот режим игры уже выбран');
-    } else{
-        $easyMode.classList.add('check');
-        $mediumMode.classList.remove('check');
-        $hardMode.classList.remove('check');
-    }
+    EasyLevelKey = true;
+    MediumLevelKey = false;
+    HardLevelKey = false;
+    levelEasyInclusion(EasyLevelKey)
 })
+
+function levelMediumInclusion(key) {
+    if(key){
+        if($timer.classList.contains('checkMedium')){
+            alert('Этот режим игры уже выбран');
+        } else{
+            $timer.classList.add('checkMedium');
+            $timer.classList.remove('checkEasy');
+            $timer.classList.remove('checkHard');
+            timer(time)
+        }
+    } else{
+        console.log('Error!');
+    }
+}
 
 $mediumMode.addEventListener('click', () => {
-    if($mediumMode.classList.contains('check')){
-        alert('Этот режим игры уже выбран');
-    } else{
-        $mediumMode.classList.add('check');
-        $easyMode.classList.remove('check');
-        $hardMode.classList.remove('check');
-    }
-    
-    timer(time)
+    EasyLevelKey = false;
+    MediumLevelKey = true;
+    HardLevelKey = false;
+
+    levelMediumInclusion(MediumLevelKey)
 })
 
-$hardMode.addEventListener('click', () => {
-    if($hardMode.classList.contains('check')){
-        alert('Этот режим игры уже выбран');
+function levelHardInclusion(key) {
+    if(key){
+        if($timer.classList.contains('checkHard')){
+            alert('Этот режим игры уже выбран');
+        } else{
+            $timer.classList.add('checkHard');
+            $btnBox.classList.add('hardBtn')
+            $timer.classList.remove('checkEasy');
+            $timer.classList.remove('checkMedium');
+            randomBackground()
+        }
     } else{
-        $hardMode.classList.add('check');
-        $easyMode.classList.remove('check');
-        $mediumMode.classList.remove('check');
+        console.log('Error!');
     }
+}
 
-    timer(time)
-    randomBackground()
+$hardMode.addEventListener('click', () => {
+    EasyLevelKey = false;
+    MediumLevelKey = false;
+    HardLevelKey = true;
+
+    levelHardInclusion(HardLevelKey)
+    timer(time)  
 })

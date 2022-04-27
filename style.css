@@ -62,9 +62,11 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  border-bottom: solid;
 }
 
 .btn{
+  /* opacity: 30%; */
   color: white;
   text-decoration: none;
   width: 100px;
@@ -75,8 +77,11 @@ body {
   align-items: center;
   cursor: pointer;
 }
-
+.hardBtn{
+  opacity: 30%;
+}
 .btn {
+  /* opacity: 30%; */
   color: #382b22;
   text-transform: uppercase;
   padding: 1.25em 2em;
@@ -87,6 +92,7 @@ body {
   transform-style: preserve-3d;
 }
 .btn::before {
+  /* opacity: 30%; */
   position: absolute;
   content: "";
   width: 100%;
@@ -253,4 +259,15 @@ body {
   width:130px;
 }
 
-.check{}
+.checkEasy{
+  color: green;
+  border-bottom: solid;
+}
+.checkMedium{
+  color: rgb(255, 177, 59);
+  border-bottom: solid;
+}
+.checkHard{
+  color: rgb(255, 59, 59);
+  border-bottom: solid;
+}

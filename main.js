@@ -21,7 +21,7 @@ const $closePopup = document.querySelector(".popup .popup-container .popup-close
 // */
 const WIDTH = 1500;
 const HEIGHT = 500;
-let countMiss = 299;
+let countMiss = 0; // if you need to look at the ending, replace 0 with 299 and click on the button
 let time = 3;
 let checkForRandomPhrase = Infinity;
 let checkForRandomColor = Infinity;

@@ -15,13 +15,19 @@ const $header = document.querySelector('.header');
     $phraseBg.classList.add('centering');
 const $phrase = document.createElement('p');
     $phrase.classList.add('phrase');
+const $confet = document.querySelector('#my-canvas');
+const $popup = document.querySelector(".popup");
+const $closePopup = document.querySelector(".popup .popup-container .popup-close")
 // */
 const WIDTH = 1500;
 const HEIGHT = 500;
-var countMiss = 0;
-var time = 3;
-var checkForRandomPhrase = Infinity;
-var checkForRandomColor = Infinity;
+let countMiss = 299;
+let time = 3;
+let checkForRandomPhrase = Infinity;
+let checkForRandomColor = Infinity;
+let EasyLevelKey = false;
+let MediumLevelKey = false;
+let HardLevelKey = false;
 
 $btnBox.insertAdjacentElement('beforeend', $btn);
 $limit.insertAdjacentElement('beforeend', $btnBox);
@@ -33,9 +39,13 @@ $container.insertAdjacentElement('beforeend', $limit);
 $header.insertAdjacentElement('afterend', $phraseBg);
 $phraseBg.insertAdjacentElement('afterend', $phrase);
 
-var posLeft;
-var posTop;
+let posLeft;
+let posTop;
     
+var confettiSettings = { target: 'my-canvas' };
+var confetti = new ConfettiGenerator(confettiSettings);
+confetti.render();
+
 function getRandomPos() {
     posLeft = Math.floor(Math.random() * 1000);
     posTop = Math.floor(Math.random() * 100);
@@ -46,20 +56,25 @@ function getRandomPos() {
     $score.innerText = 'Раз промазал: ' + countMiss;
 }
 
-var settingARandomPhrase = function(param) {
-    param = Math.floor(Math.random() * 10);
+let settingARandomPhrase = function() {
+    let param = Math.floor(Math.random() * 10);
     if(checkForRandomPhrase !== param){
         checkForRandomPhrase = param;
         return checkForRandomPhrase;
     } else{
-        settingARandomPhrase()
+        return settingARandomPhrase()
     }
 }
 
 function setRandomPhrases(){
     const phrases = ['Мимо!', 'Промах!', 'Промахнулся!', 'Старайся лучше!', 'xD', 'Что, не нажимается?', 'Упс', 'Хоба!', 'Вжух!', ':('];
-    return phrases[settingARandomPhrase()];
+    const a = settingARandomPhrase();
+    return phrases[a];
 }
+
+$closePopup.addEventListener("click", () => {
+    $popup.classList.remove("active");
+  });
 
 $btnBox.addEventListener('click', () => {
     countMiss++
@@ -68,9 +83,16 @@ $btnBox.addEventListener('click', () => {
     $phrase.innerText = setRandomPhrases();
 
     getRandomPos()
+    if(countMiss === 300){
+        $confet.classList.add('activeConfetti');
+        $popup.classList.add("active");
+        $popup.addEventListener("click", function (e) {
+            party.confetti(this);
+        });
+    }
+
     if(HardLevelKey){
         timer(time)
-        // console.log('time reloaded');
     } else if(MediumLevelKey){
         timer(time)
     }
@@ -83,7 +105,7 @@ const $mediumMode = document.querySelector('.medium');
 const $hardMode = document.querySelector('.hard');
 
 function timer(t) {
-    var timeInterval = setInterval(() => {
+    let timeInterval = setInterval(() => {
         $timer.innerText = t + ' sec';
         if (t > 0) {
             t--
@@ -95,7 +117,7 @@ function timer(t) {
     }, 1000);
 }
 
-var settingARandomColor = function(param) {
+let settingARandomColor = function(param) {
     param = Math.ceil(Math.random() * 10);
     if(checkForRandomColor !== param){
         checkForRandomColor = param;
@@ -107,14 +129,10 @@ var settingARandomColor = function(param) {
 
 function randomBackground() {
     const colors = ['#FF0000', '#00CC00', '#3914AF', '#FFD300', '#33CEC3', '#FF6F00', '#AD009F', '#C6F500', '#000000', '#FFFFFF'];
-    var colorInterval = setInterval(() => {
+    let colorInterval = setInterval(() => {
         $body.style.backgroundColor = colors[settingARandomColor()];
     }, 50)
 }
-
-var EasyLevelKey = false;
-var MediumLevelKey = false;
-var HardLevelKey = false;
 
 function levelEasyInclusion(key) {
     if(key){

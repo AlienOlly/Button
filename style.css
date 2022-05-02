@@ -33,7 +33,6 @@ body {
 
 .header{
   width: 100%;
-  /* background-color: ; */
   display: flex;
   justify-content: space-between;
 
@@ -270,4 +269,90 @@ body {
 .checkHard{
   color: rgb(255, 59, 59);
   border-bottom: solid;
+}
+
+#my-canvas{
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: -10;
+  visibility: hidden;
+}
+
+#my-canvas.activeConfetti{
+  visibility: visible;
+}
+
+.popup-container{
+  width: 500px;
+  height: 200px;
+  background-color: rgb(247, 210, 215);
+  border-radius: 15px;
+  padding: 40px 25px;
+}
+.popup {
+  position:fixed;
+  top:-100vh;
+  left:0px;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  transition:top 0ms ease-in-out 300ms;
+}
+.popup.active {
+  transition:top 0ms ease-in-out;
+  top:0vh;
+}
+.popup .popup-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) scale(1.2);
+  width:400px;
+  padding:20px 20px;
+  opacity:0.5;
+  transition:all 300ms ease-in-out;
+}
+.popup.active .popup-container {
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+.popup .popup-container .popup-close {
+  font-family: 'Lato Bold', sans-serif;
+  font-weight: 700;
+  width:150px;
+  height:30px;
+  background:greenyellow;
+  text-align:center;
+  border: 2px solid greenyellow;
+  outline: none;
+  border-radius: 10px;
+  cursor:pointer;
+}
+.popup .popup-container .popup-close:hover{
+  color: greenyellow;
+  background: white;
+  border: 2px solid greenyellow;
+  outline: none;
+  border-radius: 10px;
+  transition: all 300ms ease-in-out;
+}
+.popup .popup-container h1 {
+  text-align:center;
+  font-family: 'Lato Bold', sans-serif;
+  font-weight: 700;
+  color:#222;
+}
+.popup .popup-container p {
+  text-align: center;
+  font-family: 'Lato Bold', sans-serif;
+  font-weight: 700;
+  margin-top:10px;
+  color:#555;
 }
